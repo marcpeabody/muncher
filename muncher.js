@@ -15,7 +15,7 @@ PhaserGame.prototype = {
     },
 
     preload: function () {
-      this.load.image('ball', 'yellow_ball.png');
+        game.load.spritesheet('muncher', 'mummy.png', 37, 45, 18);
     },
 
     create: function () {
@@ -69,11 +69,19 @@ Grid.prototype = {
   resetHero: function() {
     this.currentX = this.startingX;
     this.currentY = this.startingY;
-    if (!this.ball) {
-      this.ball = game.add.sprite(this.currentXPixel(), this.currentYPixel(), 'ball');
+    var x = this.currentXPixel(),
+        y = this.currentYPixel();
+    if (!this.muncher) {
+      this.muncher = game.add.sprite(x, y, 'muncher');
+      this.muncher.anchor.set(0.5);
+      //this.muncher.scale.set(6);
+      this.muncher.smoothed = false;
+
+      this.muncher.animations.add('walk');
+      this.muncher.animations.play('walk', 15, true);
     } else {
-      this.ball.x = this.currentXPixel()
-      this.ball.y = this.currentYPixel();
+      this.muncher.x = x;
+      this.muncher.y = y;
     }
   },
   currentXPixel: function() {
@@ -112,9 +120,8 @@ Grid.prototype = {
         this.fillCellsWithNoms();
         this.currentX = this.startingX || 0;
         this.currentY = this.startingY || 0;
-        window.ball = this.ball
-        this.ball.position.x = this.currentXPixel();
-        this.ball.position.y = this.currentYPixel();
+        this.muncher.position.x = this.currentXPixel();
+        this.muncher.position.y = this.currentYPixel();
       }
     }
   },
@@ -179,7 +186,7 @@ Grid.prototype = {
     this.inputHalted = true;
     this.gobbleHalted = true;
     // this.delayGobble();
-    var move = game.add.tween(this.ball);
+    var move = game.add.tween(this.muncher);
     move.to(toPosition, 300).onComplete.add(function(){
       this.inputHalted = false;
       this.gobbleHalted = false;
