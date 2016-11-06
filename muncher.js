@@ -6,10 +6,6 @@ var PhaserGame = function (game) {
 PhaserGame.prototype = {
 
     init: function () {
-      // this.scoreLeft = 0;
-      // this.scoreLeftText = null;
-      // this.scoreRight = 0;
-      // this.scoreRightText = null;
       this.physics.startSystem(Phaser.Physics.ARCADE);
       this.grid = null;
     },
@@ -20,10 +16,6 @@ PhaserGame.prototype = {
 
     create: function () {
       this.grid = new Grid(6, 5, 2, 2, 90, 70);
-      // this.scoreLeftText = game.add.text(0, 0, this.scoreLeft, {font: "72px Arial", fill: "blue"});
-      // this.scoreRightText = game.add.text(game.width, 0, this.scoreRight, {font: "72px Arial", fill: "red", align: "right"});
-      // this.scoreRightText.x = Math.floor(game.width - this.scoreRightText.width);
-      //this.scoreRightText.setTextBounds(16, 16, 200, 40);
       this.cursors = this.input.keyboard.createCursorKeys();
       this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -185,7 +177,6 @@ Grid.prototype = {
     var toPosition = {x: this.currentXPixel(), y: this.currentYPixel()}
     this.inputHalted = true;
     this.gobbleHalted = true;
-    // this.delayGobble();
     var move = game.add.tween(this.muncher);
     move.to(toPosition, 300).onComplete.add(function(){
       this.inputHalted = false;
@@ -211,7 +202,6 @@ Grid.prototype = {
       for (var row=0; row < this.rowCount; row++) {
         number = Math.ceil(Math.random() * 30)
         this.noms[column][row] = new Nommable(number, this.calculateXPixelCenter(column), this.calculateYPixelCenter(row));
-        // number += 1;
       }
     }
   },
